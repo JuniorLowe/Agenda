@@ -1,3 +1,5 @@
+using System.Configuration;
+
 namespace Agenda.UIDesktop
 {
     internal static class Program
@@ -11,6 +13,10 @@ namespace Agenda.UIDesktop
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+
+            
+            //var name2 = ConfigurationManager.ConnectionStrings["connstr"];
+
             Application.Run(new Form1());
         }
     }
