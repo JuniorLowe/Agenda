@@ -31,17 +31,8 @@ namespace Agenda.DAL
         {
             using (var conn = new SqlConnection(_strCon))
             {
-                conn.Open();
-
-                string sql = String.Format("INSERT INTO Contato (Id, Nome) VALUES ('{0}', '{1}');", contato.Id, contato.Nome);
-
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.ExecuteNonQuery();
-
-                //_conn.Close();
-            }
-        
-
+                conn.Execute("INSERT INTO Contato (Id, Nome) VALUES (@Id, @Nome);", contato);
+            }       
         }
 
         public Contato Obter(Guid id)
@@ -49,19 +40,7 @@ namespace Agenda.DAL
             Contato contato;
             using (var conn = new SqlConnection(_strCon))
             {
-                conn.Open();
-
-                string sql = String.Format("select id, nome from contato where Id='{0}'", id);
-
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                var sqlDataReader = cmd.ExecuteReader();
-                sqlDataReader.Read();
-
-                contato = new Contato()
-                {
-                    Id = Guid.Parse(sqlDataReader["id"].ToString()),
-                    Nome = sqlDataReader["nome"].ToString()
-                };
+                contato = conn.QueryFirst<Contato>("select id, nome from contato where Id=@Id", new {Id=id}); //Parametro new é objeto anônimo
             }
 
             return contato;
