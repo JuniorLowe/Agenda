@@ -1,12 +1,10 @@
 ﻿using Agenda.Domain.Entities;
+using Dapper;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Data.SqlClient;
-using Dapper;
 using System.Linq;
-using System.Drawing;
 
 namespace Agenda.DAL
 {
@@ -22,7 +20,7 @@ namespace Agenda.DAL
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-            _strCon = configuration.GetConnectionString("dev");
+            _strCon = configuration.GetConnectionString("conn");
 
            
         }
